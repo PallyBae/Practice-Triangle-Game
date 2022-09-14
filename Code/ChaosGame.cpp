@@ -43,6 +43,7 @@ int main()
                     {
                         ///fourthclick
                         ///push back to points vector
+                        points.push_back(Vector2f(even.mouseButton.x, event.mouseButton.y));
                         ///maybe unnecessary
                     }
                     clicked.x = event.mouseButton.x;
@@ -72,6 +73,9 @@ int main()
         
         if(points.size() > 0)
         {
+            srand(time(0));
+            int vert_select = (rand() % 3);
+            int midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)/2
             ///generate point
             ///select random vertex
             ///calculate midpoint between vertex and last point in vector
