@@ -43,7 +43,7 @@ int main()
                     {
                         ///fourthclick
                         ///push back to points vector
-                        points.push_back(Vector2f(even.mouseButton.x, event.mouseButton.y));
+                        points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
                         ///maybe unnecessary
                     }
                     clicked.x = event.mouseButton.x;
@@ -67,15 +67,24 @@ int main()
         */
         ///Vector2f v(2,2);
         ///RectangleShape rect(v);
-        RectangleShape rect(Vector2f(5,5));
-        rect.setPosition(clicked.x, clicked.y);
-        rect.setFillColor(Color::Blue);
+        
         
         if(points.size() > 0)
         {
-            srand(time(0));
-            int vert_select = (rand() % 3);
-            int midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)/2
+            int midpoint_x;
+            int midpoint_y;
+            int vert_select;
+
+            for(int i = 0; i < 100; i++)
+            {
+                srand(time(0) + i);
+                vert_select = (rand() % 3);
+                midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)/2;
+                midpoint_y = (vertices[vert_select].y + points[points.size()-1].y)/2;
+                points.push_back(Vector2f(midpoint_x, midpoint_y));
+            }
+            
+
             ///generate point
             ///select random vertex
             ///calculate midpoint between vertex and last point in vector
@@ -94,10 +103,17 @@ int main()
         // Draw our game scene here
         for(int i = 0; i < vertices.size(); i++)
         {
-            RectangleShape rect(Vector2f(10,10));
+            RectangleShape rect(Vector2f(1,1));
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
-            rect.setFillColor(Color::Blue);
+            rect.setFillColor(Color::Red);
             window.draw(rect);
+        }
+        for(int i = 1; i < points.size(); i++)
+        {
+            RectangleShape rectp(Vector2f(1,1));
+            rectp.setPosition(Vector2f(points[i].x, points[i].y));
+            rectp.setFillColor(Color::Blue);
+            window.draw(rectp);
         }
         
         window.display();
