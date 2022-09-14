@@ -56470,21 +56470,29 @@ int main()
      std::cout << "mouse x: " << event.mouseButton.x << std::endl;
      std::cout << "mouse y: " << event.mouseButton.y << std::endl;
 
-                    if(vertices.size() < 3)
+                    if(vertices.size() < 20)
                     {
                         vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
                     }
-                    else if(points.size() == 0)
-                    {
 
-
-                        points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
-
-                    }
                     clicked.x = event.mouseButton.x;
      clicked.y = event.mouseButton.y;
 
     }
+                else if (event.mouseButton.button == sf::Mouse::Right)
+                {
+                    std::cout << "the right button was pressed" << std::endl;
+     std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+     std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+
+                    if(vertices >= 3)
+                    {
+                        points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
+                    }
+
+                    clicked.x = event.mouseButton.x;
+     clicked.y = event.mouseButton.y;
+                }
    }
 
   }
@@ -56493,20 +56501,19 @@ int main()
   {
    window.close();
   }
-# 70 "/home/admin/Desktop/cisp400/Projects/PracticeTGame/Practice-Triangle-Game/Code/ChaosGame.cpp"
-        RectangleShape rect(Vector2f(5,5));
-        rect.setPosition(clicked.x, clicked.y);
-        rect.setFillColor(Color::Blue);
-
+# 80 "/home/admin/Desktop/cisp400/Projects/PracticeTGame/Practice-Triangle-Game/Code/ChaosGame.cpp"
         if(points.size() > 0)
         {
+            int midpoint_x;
+            int midpoint_y;
+            int vert_select;
 
-            for(int i = 0; i < 100; i++)
+            for(int i = 0; i < 200; i++)
             {
-                srand(time(i));
-                int vert_select = (rand() % 3);
-                int midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)/2;
-                int midpoint_y = (vertices[vert_select].y + points[points.size()-1].y)/2;
+                srand(time(0) + i);
+                vert_select = (rand() % 3);
+                midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)/2;
+                midpoint_y = (vertices[vert_select].y + points[points.size()-1].y)/2;
                 points.push_back(Vector2f(midpoint_x, midpoint_y));
             }
 
@@ -56516,22 +56523,22 @@ int main()
 
 
         }
-# 101 "/home/admin/Desktop/cisp400/Projects/PracticeTGame/Practice-Triangle-Game/Code/ChaosGame.cpp"
+# 110 "/home/admin/Desktop/cisp400/Projects/PracticeTGame/Practice-Triangle-Game/Code/ChaosGame.cpp"
         window.clear();
 
         for(int i = 0; i < vertices.size(); i++)
         {
-            RectangleShape rect(Vector2f(5,5));
+            RectangleShape rect(Vector2f(1,1));
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
-            rect.setFillColor(Color::Blue);
+            rect.setFillColor(Color::Red);
             window.draw(rect);
         }
-        for(int i = 0; i < points.size(); i++)
+        for(int i = 1; i < points.size(); i++)
         {
-            RectangleShape rect(Vector2f(5,5));
-            rect.setPosition(Vector2f(points[i].x, points[i].y));
-            rect.setFillColor(Color::Blue);
-            window.draw(rect);
+            RectangleShape rectp(Vector2f(1,1));
+            rectp.setPosition(Vector2f(points[i].x, points[i].y));
+            rectp.setFillColor(Color::Blue);
+            window.draw(rectp);
         }
 
         window.display();
