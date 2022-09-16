@@ -3,6 +3,7 @@ using namespace sf;
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <sstream>
 using namespace std;
 
 int main()
@@ -23,6 +24,33 @@ int main()
     int false_poly_mid_y = 0;
 
 	Vector2f clicked;
+
+    //Adding the font we will use
+    Font font;
+    font.loadFromFile("KOMIKAP_.ttf");
+
+    //Configuring the instruction text
+    Text instruction_text;
+    instruction_text.setFont(font);
+    instruction_text.setString("LEFT CLICK to place vertices\nRIGHT CLICK to START");
+    instruction_text.setCharacterSize(75);
+    instruction_text.setFillColor(Color::White);
+
+    //Configuring the point counter
+    Text point_count_text;
+    point_count_text.setFont(font);
+    point_count_text.setString("Points = 0");
+    point_count_text.setCharacterSize(100);
+    point_count_text.setFillColor(Color::Green);
+
+    //Positioning The Instruction Text
+    FloatRect textRect = instruction_text.getLocalBounds();
+    instruction_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+    instruction_text.setPosition(1920/2.0f, 1080/2.0f);
+
+    //Positioning The Point Counter
+    point_count_text.setPosition(30, 30);
+
 
     while (window.isOpen())
 	{
@@ -214,8 +242,13 @@ int main()
                 }
 
                 points.push_back(Vector2f(midpoint_x, midpoint_y));
+
+                //Updating The Point Counting Text
+                stringstream ss;
+                ss << "Points = " << points.size();
+                point_count_text.setString(ss.str());
             }
-            
+    
 
             ///generate point
             ///select random vertex
@@ -233,6 +266,16 @@ int main()
         // Clear everything from the last run frame
         window.clear();
         // Draw our game scene here
+
+        //Drawing Point Counter
+        window.draw(point_count_text);
+
+        //Drawing Instruction Text
+        if(vertices.size() == 0)
+        {
+            window.draw(instruction_text);
+        }
+
         for(int i = 0; i < vertices.size(); i++)
         {
             RectangleShape rect(Vector2f(2,2));
