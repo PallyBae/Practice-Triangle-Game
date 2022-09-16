@@ -165,7 +165,7 @@ int main()
             }
             
             //Calculating point positions based on randomly selected vertices
-            for(int i = 0; i < 4000; i++)
+            for(int i = 0; i < 40000; i++)
             {
                 srand(time(0) + i);
                 //calculate the midpoint of the wrongly translated polygon
@@ -207,6 +207,12 @@ int main()
                 midpoint_x = (vertices[vert_select].x + points[points.size()-1].x)*scale_factor;
                 midpoint_y = (vertices[vert_select].y + points[points.size()-1].y)*scale_factor;
 
+                if(vertices.size() == 5)
+                {
+                    midpoint_x = -(vertices[vert_select].x - points[points.size()-1].x) / 8 * 3 + vertices[vert_select].x;
+                    midpoint_y = -(vertices[vert_select].y - points[points.size()-1].y) / 8 * 3 + vertices[vert_select].y;
+                }
+
                 points.push_back(Vector2f(midpoint_x, midpoint_y));
             }
             
@@ -229,16 +235,16 @@ int main()
         // Draw our game scene here
         for(int i = 0; i < vertices.size(); i++)
         {
-            RectangleShape rect(Vector2f(3,3));
+            RectangleShape rect(Vector2f(2,2));
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
             rect.setFillColor(Color::Red);
             window.draw(rect);
         }
-        if(vertices.size() > 3)
+        if(vertices.size() > 5)
         {
             for(int i = 20; i < points.size(); i++)
             {
-                RectangleShape rectp(Vector2f(3,3));
+                RectangleShape rectp(Vector2f(2,2));
                 rectp.setPosition(Vector2f(points[i].x + (poly_mid_x - false_poly_mid_x), points[i].y + (poly_mid_y - false_poly_mid_y)));
                 rectp.setFillColor(Color::Blue);
                 window.draw(rectp);
