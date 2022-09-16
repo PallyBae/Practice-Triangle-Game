@@ -27,20 +27,20 @@ int main()
 
     //Adding the font we will use
     Font font;
-    font.loadFromFile("KOMIKAP_.ttf");
+    font.loadFromFile("fonts/KOMIKAP_.ttf");
 
     //Configuring the instruction text
     Text instruction_text;
     instruction_text.setFont(font);
     instruction_text.setString("LEFT CLICK to place vertices\nRIGHT CLICK to START");
-    instruction_text.setCharacterSize(75);
+    instruction_text.setCharacterSize(50);
     instruction_text.setFillColor(Color::White);
 
     //Configuring the point counter
     Text point_count_text;
     point_count_text.setFont(font);
     point_count_text.setString("Points = 0");
-    point_count_text.setCharacterSize(100);
+    point_count_text.setCharacterSize(75);
     point_count_text.setFillColor(Color::Green);
 
     //Positioning The Instruction Text
