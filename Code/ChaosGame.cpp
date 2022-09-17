@@ -6,6 +6,8 @@ using namespace sf;
 #include <sstream>
 using namespace std;
 
+//Now a Cool Project!!!
+
 int main()
 {
 	// Create a video mode object
